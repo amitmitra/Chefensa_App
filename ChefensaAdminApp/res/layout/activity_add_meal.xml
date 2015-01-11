@@ -1,0 +1,106 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Enter Meal Details"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- name -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Name *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Name of Meal"
+            android:inputType="text" />
+
+        <!-- description -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Description *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/desc_input"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:hint="Description about Meal"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical" />
+
+        <!-- meal type -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Meal Type *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mealtype_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Meal Type"
+            android:inputType="text" />
+
+        <!-- price -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Price *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/price_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Price"
+            android:inputType="number" />
+
+        <!-- availability -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Availability:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/availability_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Availability"
+            android:inputType="number" />
+    </LinearLayout>
+
+</ScrollView>

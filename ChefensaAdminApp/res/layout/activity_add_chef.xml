@@ -1,0 +1,521 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Enter Chef Details"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- name -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Name *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/name_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Full Name"
+            android:inputType="text" />
+
+        <!-- phone number -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Phone No *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/phone_no_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Phone Number"
+            android:inputType="number" />
+
+        <!-- gender -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Gender:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/radio_male" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_female" />
+        </RadioGroup>
+
+        <!-- email id -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Email:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Valid Email Id"
+            android:inputType="text" />
+
+        <!-- address -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Address:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Initial Address:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/initial_address_input"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:hint="Fill FLat No. Building Name and Street Name"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Locality:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/locality_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Locality"
+                android:inputType="text" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="City:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/city_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter City Name"
+                android:inputType="text" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="State:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/state_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter State Name"
+                android:inputType="text" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="PIN:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/pin_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Pin"
+                android:inputType="number" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Landmark:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/landmark_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Landmark"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <!-- description -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Description:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/desc_input"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:hint="About Chef"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical" />
+
+        <!-- languages -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Speaking Languages:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/language_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Languages separated with comma"
+            android:inputType="text" />
+
+        <!-- marital status -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Marital Status:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioMaritalStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radioUnmarried"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/radio_unmarried" />
+
+            <RadioButton
+                android:id="@+id/radioMarried"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_married" />
+        </RadioGroup>
+
+        <!-- ethnicity -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ethnicity:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/ethnicity_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Origin of chef"
+            android:inputType="text" />
+
+        <!-- chef category -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Chef Category:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioChefType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radioHouseWife"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/radio_housewife" />
+
+            <RadioButton
+                android:id="@+id/radioVendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_vendor" />
+        </RadioGroup>
+
+        <!-- meal category -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Meal Category:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioMealType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radioVeg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/radio_veg" />
+
+            <RadioButton
+                android:id="@+id/radioEgg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_egg" />
+
+            <RadioButton
+                android:id="@+id/radioNonVeg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_non_veg" />
+        </RadioGroup>
+
+        <!-- Working days -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Working Days:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/mon_string" />
+
+            <CheckBox
+                android:id="@+id/tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/mon"
+                android:text="@string/tue_string" />
+
+            <CheckBox
+                android:id="@+id/wed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/tue"
+                android:text="@string/wed_string" />
+
+            <CheckBox
+                android:id="@+id/thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/wed"
+                android:text="@string/thu_string" />
+
+            <CheckBox
+                android:id="@+id/fri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/mon"
+                android:text="@string/fri_string" />
+
+            <CheckBox
+                android:id="@+id/sat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tue"
+                android:layout_toRightOf="@id/fri"
+                android:text="@string/sat_string" />
+
+            <CheckBox
+                android:id="@+id/sun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wed"
+                android:layout_toRightOf="@id/sat"
+                android:text="@string/sun_string" />
+        </RelativeLayout>
+
+        <!-- Working time -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Working Time:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioWorkingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radioMorning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/radio_morning" />
+
+            <RadioButton
+                android:id="@+id/radioEvening"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_evening" />
+
+            <RadioButton
+                android:id="@+id/radioBoth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/radio_both" />
+        </RadioGroup>
+
+        <!-- meal type -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Meal Types *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/mealtype_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter types of food chef can cook"
+            android:inputType="text" />
+
+        <!-- speciality -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Speciality:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/speciality_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="What chef can cook best"
+            android:inputType="text" />
+
+        <!-- capacity -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Capacity *:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/capacity_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="How many meals each time"
+            android:inputType="number" />
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Chefensa Admin</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="add_chef_string">Add Chef</string>
+    <string name="add_meal_string">Add Meal</string>
+    <string name="chef_list_string">Chef List</string>
+    <string name="meal_list_string">Meal List</string>
+    <string name="title_activity_add_chef">AddChefActivity</string>
+    <string name="title_activity_add_meal">AddMealActivity</string>
+    <string name="title_activity_chef_list">ChefListActivity</string>
+    <string name="title_activity_meal_list">MealListActivity</string>
+    
+    <string name="add_string">Add</string>
+
+	<string name="radio_male">Male</string>
+	<string name="radio_female">Female</string>
+	
+	<string name="radio_unmarried">Unmarried</string>
+	<string name="radio_married">Married</string>
+	
+	<string name="radio_veg">Veg</string>
+	<string name="radio_egg">Egg</string>
+	<string name="radio_non_veg">Non Veg</string>
+	
+	<string name="radio_housewife">Housewife</string>
+	<string name="radio_vendor">Vendor</string>
+	
+	<string name="radio_morning">Morning</string>
+	<string name="radio_evening">Evening</string>
+	<string name="radio_both">Both</string>
+	
+	<string name="mon_string">Mon</string>
+	<string name="tue_string">Tue</string>
+	<string name="wed_string">Wed</string>
+	<string name="thu_string">Thu</string>
+	<string name="fri_string">Fri</string>
+	<string name="sat_string">Sat</string>
+	<string name="sun_string">Sun</string>
+
+</resources>
