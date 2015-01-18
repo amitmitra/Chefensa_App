@@ -3,9 +3,10 @@
     tools:context="com.project.chefensa.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_cart"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/add_to_cart_image"
+        android:title="@string/cart_string"/>
 
 </menu>
