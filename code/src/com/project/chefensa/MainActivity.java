@@ -1,10 +1,12 @@
 package com.project.chefensa;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -14,15 +16,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.project.chefensa.adapter.CartMealListAdapter;
 import com.project.chefensa.adapter.NavDrawerListAdapter;
+import com.project.chefensa.fragment.ContactUsFragment;
+import com.project.chefensa.fragment.HowItWorksFragment;
 import com.project.chefensa.fragment.MealDetailFragment;
-import com.project.chefensa.model.Meal;
+import com.project.chefensa.fragment.MealOrderFragment;
+import com.project.chefensa.fragment.MyOrdersFragment;
+import com.project.chefensa.fragment.MyProfileFragment;
+import com.project.chefensa.fragment.UserLoginFragment;
 import com.project.chefensa.model.NavDrawerItem;
+import com.project.chefensa.util.ConstantUtil;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends Activity implements FragmentManager.OnBackStackChangedListener{
+	
+	private Context mContext;
 	
 	private String[] navMenuTitles;
     private TypedArray navMenuIcons;
@@ -31,51 +46,10 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
     private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
     private NavDrawerListAdapter adapter;
-    
-	//Meal Test Data
-	List<Meal> lunchList = new ArrayList<Meal>();
-	List<Meal> dinnerList = new ArrayList<Meal>();
-	
-	private void populateTestData(){
-		Meal lunch1 = new Meal("lunch1","100", R.drawable.lunch1, "Desc1", "#North Indian #Sweat", 
-				0, 2, "Amit Mitra", R.drawable.ic_launcher, 1, 14);
-		lunchList.add(lunch1);
-		Meal lunch2 = new Meal("lunch2","150", R.drawable.lunch2, "Desc2", "#South Indian #Continental", 
-				1, 1, "Abhishek Ladha", R.drawable.ic_launcher, 2, 20);
-		lunchList.add(lunch2);
-		Meal lunch3 = new Meal("lunch3","160", R.drawable.lunch3, "Desc3", "#Continental", 
-				0, 2, "Nimish", R.drawable.ic_launcher, 1, 23);
-		lunchList.add(lunch3);
-		Meal lunch4 = new Meal("lunch4","80", R.drawable.lunch4, "Desc4", "#Punjabi #North Indian", 
-				0, 3, "Karishma Kapoor", R.drawable.ic_launcher, 1, 2);
-		lunchList.add(lunch4);
-		Meal lunch5 = new Meal("lunch5","100", R.drawable.lunch5, "Desc5", "#North Indian #Rajasthani", 
-				2, 2, "Bholi Punjaban", R.drawable.ic_launcher, 1, 1);
-		lunchList.add(lunch5);
-		
-		Meal dinner1 = new Meal("dinner1","100", R.drawable.dinner1, "Desc Dinner 1", "#Gujrati Thali", 
-				0, 1, "Amit Mitra", R.drawable.ic_launcher, 1, 10);
-		dinnerList.add(dinner1);
-		Meal dinner2 = new Meal("dinner2","250", R.drawable.dinner2, "Desc Dinner 1", "#South Indian #Hyderabadi", 
-				1, 2, "Dada Muni", R.drawable.ic_launcher, 3, 10);
-		dinnerList.add(dinner2);
-		Meal dinner3 = new Meal("dinner3","60", R.drawable.dinner3, "Desc Dinner 1", "#Rajasthani Special", 
-				0, 3, "Virat Kohli", R.drawable.ic_launcher, 1, 0);
-		dinnerList.add(dinner3);
-		Meal dinner4 = new Meal("dinner4","140", R.drawable.dinner4, "Desc Dinner 1", "#Bengali", 
-				0, 3, "XYZ", R.drawable.ic_launcher, 3, 5);
-		dinnerList.add(dinner4);
-		Meal dinner5 = new Meal("dinner5","100", R.drawable.dinner5, "Desc Dinner 1", "#North Indian", 
-				2, 2, "Kajol", R.drawable.ic_launcher, 1, 14);
-		dinnerList.add(dinner5);
-		Meal dinner6 = new Meal("dinner6","110", R.drawable.dinner6, "Desc Dinner 1", "#Continetal", 
-				0, 2, "Amit Mitra", R.drawable.ic_launcher, 1, 6);
-		dinnerList.add(dinner6);
-	}
 	
 	//flipboard animation
     private Handler mHandler = new Handler();
-    private boolean mShowingBack = false;
+    public boolean mShowingBack = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +57,49 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 		
 		setContentView(R.layout.activity_main);
 		
+		mContext = this;
+		
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list_item);
+        
+        mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				switch(position){
+				case 0:
+					if(isLunchTime()){
+						getFragmentManager().beginTransaction().replace(R.id.container,
+										new MealDetailFragment(1, "7:00PM - 11:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
+						} else {
+							getFragmentManager().beginTransaction().replace(R.id.container,
+									new MealDetailFragment(0, "11:00AM - 3:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
+						}
+					break;
+				case 1:
+					getFragmentManager().beginTransaction().replace(R.id.container, new UserLoginFragment()).addToBackStack(null).commit();
+					break;
+				case 2:
+					getFragmentManager().beginTransaction().replace(R.id.container, new MyOrdersFragment()).addToBackStack(null).commit();
+					break;
+				case 3:
+					getFragmentManager().beginTransaction().replace(R.id.container, new MyProfileFragment()).addToBackStack(null).commit();
+					break;
+				case 4:
+					getFragmentManager().beginTransaction().replace(R.id.container, new HowItWorksFragment()).addToBackStack(null).commit();
+					break;
+				case 5:
+					getFragmentManager().beginTransaction().replace(R.id.container, new ContactUsFragment()).addToBackStack(null).commit();
+					break;
+				}
+				mDrawerLayout.closeDrawer(mDrawerList);
+				mHandler.post(new Runnable() {
+	    			@Override
+	    			public void run() {
+	    				invalidateOptionsMenu();
+	    			}
+	    		});
+			}
+		});
         
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
@@ -92,9 +107,9 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
         navMenuIcons.recycle();
         
         adapter = new NavDrawerListAdapter(this, navDrawerItems);
@@ -115,9 +130,13 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
         mDrawerLayout.setDrawerListener(mDrawerToggle);
  
         //flipboard animation
-        populateTestData();
+        ConstantUtil.populateTestData();
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(R.id.container, new MealDetailFragment(0 , "11:00AM - 3:00PM", lunchList)).commit();
+        	if(isLunchTime()){
+        		getFragmentManager().beginTransaction().add(R.id.container, new MealDetailFragment(0 , "11:00AM - 3:00PM", ConstantUtil.lunchList)).commit();
+        	} else {
+        		getFragmentManager().beginTransaction().add(R.id.container, new MealDetailFragment(1 , "7:00PM - 11:00PM", ConstantUtil.lunchList)).commit();
+        	}
         } else {
             mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
         }
@@ -127,14 +146,30 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		lunchList.clear();
-		dinnerList.clear();
+		ConstantUtil.lunchList.clear();
+		ConstantUtil.dinnerList.clear();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem item = menu.add(Menu.NONE, R.id.action_flip, Menu.NONE, mShowingBack ? R.string.lunch_string : R.string.dinner_string);
-		item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		getMenuInflater().inflate(R.menu.main, menu);
+		MenuItem switchMenuItem;
+		if(isLunchTime()){
+			switchMenuItem = menu.add(Menu.NONE, R.id.action_flip,
+					Menu.NONE, mShowingBack ? R.string.lunch_string : R.string.dinner_string);
+		} else {
+			switchMenuItem = menu.add(Menu.NONE, R.id.action_flip,
+					Menu.NONE, mShowingBack ? R.string.dinner_string : R.string.lunch_string);
+		}
+		switchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		MenuItem cartMenuItem = menu.findItem(R.id.action_cart);
+		/*if (fragmentType != FRAGMENT_TYPE_MEALLISTFRAGMENT) {
+			switchMenuItem.setVisible(false);
+			cartMenuItem.setVisible(false);
+		} else {
+			switchMenuItem.setVisible(true);
+			cartMenuItem.setVisible(true);
+		}*/
 		return true;
 	}
 
@@ -147,6 +182,10 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 			flipCard();
             return true;
 		}
+		if(item.getItemId() == R.id.action_cart){
+			showCart();
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -157,10 +196,15 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 		}
 
 		mShowingBack = true;
-
+		if(isLunchTime()){
 		getFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in,
 						R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.container,
-						new MealDetailFragment(1, "7:00PM - 11:00PM", dinnerList)).addToBackStack(null).commit();
+						new MealDetailFragment(1, "7:00PM - 11:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
+		} else {
+			getFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in,
+					R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.container,
+					new MealDetailFragment(0, "11:00AM - 3:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
+		}
 		mHandler.post(new Runnable() {
 			@Override
 			public void run() {
@@ -185,5 +229,58 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 	public void onBackStackChanged() {
 		mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
         invalidateOptionsMenu();
+	}
+	
+	public void showCart(){
+		final Dialog cartDialog = new Dialog(mContext);
+		cartDialog.setContentView(R.layout.cart_dialog_view);
+		cartDialog.setTitle(R.string.cart_string);
+		
+		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+		lp.copyFrom(cartDialog.getWindow().getAttributes());
+	    lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+		cartDialog.getWindow().setAttributes(lp);
+		
+		ListView mealListView = (ListView)cartDialog.findViewById(R.id.cart_meal_list);
+		mealListView.setAdapter(new CartMealListAdapter(ConstantUtil.lunchList, mContext));
+		mealListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				cartDialog.dismiss();
+			}
+			
+		});
+		Button placeOrderButton = (Button)cartDialog.findViewById(R.id.place_order_button);
+		placeOrderButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				getFragmentManager().beginTransaction().replace(R.id.container, new MealOrderFragment()).addToBackStack(null).commit();
+				cartDialog.dismiss();
+			}
+		});
+		cartDialog.show();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		mHandler.post(new Runnable() {
+			@Override
+			public void run() {
+				invalidateOptionsMenu();
+			}
+		});
+	}
+	
+	private boolean isLunchTime(){
+		Calendar calendar = Calendar.getInstance();
+		int hour = calendar.getTime().getHours();
+		if(hour >= 1 && hour < 15){
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

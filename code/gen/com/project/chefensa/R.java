@@ -47,59 +47,73 @@ public final class R {
     }
     public static final class drawable {
         public static final int add_to_cart_image=0x7f020000;
-        public static final int chef_image=0x7f020001;
-        public static final int counter_bg=0x7f020002;
-        public static final int dinner1=0x7f020003;
-        public static final int dinner2=0x7f020004;
-        public static final int dinner3=0x7f020005;
-        public static final int dinner4=0x7f020006;
-        public static final int dinner5=0x7f020007;
-        public static final int dinner6=0x7f020008;
-        public static final int ic_communities=0x7f020009;
-        public static final int ic_drawer=0x7f02000a;
-        public static final int ic_home=0x7f02000b;
-        public static final int ic_launcher=0x7f02000c;
-        public static final int ic_pages=0x7f02000d;
-        public static final int ic_people=0x7f02000e;
-        public static final int ic_photos=0x7f02000f;
-        public static final int ic_whats_hot=0x7f020010;
-        public static final int list_item_bg_normal=0x7f020011;
-        public static final int list_item_bg_pressed=0x7f020012;
-        public static final int list_selector=0x7f020013;
-        public static final int lunch1=0x7f020014;
-        public static final int lunch2=0x7f020015;
-        public static final int lunch3=0x7f020016;
-        public static final int lunch4=0x7f020017;
-        public static final int lunch5=0x7f020018;
-        public static final int non_veg_symbol_image=0x7f020019;
-        public static final int veg_symbol_image=0x7f02001a;
+        public static final int background=0x7f020001;
+        public static final int border_ui=0x7f020002;
+        public static final int chef_image=0x7f020003;
+        public static final int counter_bg=0x7f020004;
+        public static final int ic_communities=0x7f020005;
+        public static final int ic_drawer=0x7f020006;
+        public static final int ic_home=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int ic_pages=0x7f020009;
+        public static final int ic_people=0x7f02000a;
+        public static final int ic_photos=0x7f02000b;
+        public static final int ic_whats_hot=0x7f02000c;
+        public static final int list_item_bg_normal=0x7f02000d;
+        public static final int list_item_bg_pressed=0x7f02000e;
+        public static final int list_selector=0x7f02000f;
+        public static final int lunch1=0x7f020010;
+        public static final int non_veg_symbol_image=0x7f020011;
+        public static final int veg_symbol_image=0x7f020012;
     }
     public static final class id {
+        public static final int action_cart=0x7f07002e;
         public static final int action_flip=0x7f070000;
-        public static final int action_settings=0x7f070018;
-        public static final int add_to_cart_button=0x7f070011;
-        public static final int blank_space=0x7f070009;
-        public static final int chef_detail_button=0x7f070016;
-        public static final int chef_name_view=0x7f070017;
+        public static final int add_address_button=0x7f07002d;
+        public static final int add_details_button=0x7f070023;
+        public static final int add_to_cart_button=0x7f070018;
+        public static final int address_list_layout=0x7f07002b;
+        public static final int address_spinner=0x7f07002c;
+        public static final int blank_space=0x7f070011;
+        public static final int cart_meal_list=0x7f070004;
+        public static final int cart_total_price_view=0x7f070006;
+        public static final int chef_detail_button=0x7f07001d;
+        public static final int chef_name_view=0x7f07001e;
         public static final int container=0x7f070002;
-        public static final int counter=0x7f070006;
+        public static final int counter=0x7f07000e;
+        public static final int details_layout=0x7f070024;
         public static final int drawer_layout=0x7f070001;
         public static final int drawer_list_item=0x7f070003;
-        public static final int icon=0x7f070004;
-        public static final int meal_category_view=0x7f07000d;
-        public static final int meal_image_view=0x7f07000b;
-        public static final int meal_large_layout=0x7f070012;
-        public static final int meal_name_view=0x7f07000c;
-        public static final int meal_preparation_view=0x7f070014;
-        public static final int meal_small_layout=0x7f07000a;
-        public static final int meal_type=0x7f070007;
-        public static final int meal_type_view=0x7f07000e;
-        public static final int meals_list=0x7f070008;
-        public static final int order_quantity_spinner=0x7f070010;
-        public static final int price_view=0x7f07000f;
-        public static final int recepe_string_view=0x7f070013;
-        public static final int serve_note_view=0x7f070015;
-        public static final int title=0x7f070005;
+        public static final int edit_email_button=0x7f07002a;
+        public static final int edit_name_button=0x7f070026;
+        public static final int edit_phone_button=0x7f070028;
+        public static final int email_view=0x7f070029;
+        public static final int enter_details_layout=0x7f070021;
+        public static final int icon=0x7f07000c;
+        public static final int item_number_view=0x7f070007;
+        public static final int meal_category_view=0x7f070014;
+        public static final int meal_image_view=0x7f070013;
+        public static final int meal_large_layout=0x7f070019;
+        public static final int meal_name_view=0x7f070008;
+        public static final int meal_order_list=0x7f07001f;
+        public static final int meal_preparation_view=0x7f07001b;
+        public static final int meal_price_view=0x7f07000a;
+        public static final int meal_quantity_view=0x7f070009;
+        public static final int meal_small_layout=0x7f070012;
+        public static final int meal_type=0x7f07000f;
+        public static final int meal_type_view=0x7f070015;
+        public static final int meals_list=0x7f070010;
+        public static final int name_view=0x7f070025;
+        public static final int no_details_saved_view=0x7f070022;
+        public static final int order_quantity_spinner=0x7f070017;
+        public static final int phone_view=0x7f070027;
+        public static final int place_order_button=0x7f070005;
+        public static final int price_view=0x7f070016;
+        public static final int recepe_string_view=0x7f07001a;
+        public static final int remove_from_cart_button=0x7f07000b;
+        public static final int serve_note_view=0x7f07001c;
+        public static final int title=0x7f07000d;
+        public static final int total_view=0x7f070020;
     }
     public static final class integer {
         public static final int card_flip_time_full=0x7f080000;
@@ -107,22 +121,46 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int drawer_list_item=0x7f030001;
-        public static final int meal_detail_fragment_layout=0x7f030002;
-        public static final int meal_list_view_item=0x7f030003;
+        public static final int cart_dialog_view=0x7f030001;
+        public static final int cart_list_item_view=0x7f030002;
+        public static final int contact_us_fragment_layout=0x7f030003;
+        public static final int drawer_list_item=0x7f030004;
+        public static final int howitworks_fragment_layout=0x7f030005;
+        public static final int meal_detail_fragment_layout=0x7f030006;
+        public static final int meal_list_view_item=0x7f030007;
+        public static final int meal_order_fragment_layout=0x7f030008;
+        public static final int my_orders_fragment_layout=0x7f030009;
+        public static final int my_profile_fragment_layout=0x7f03000a;
+        public static final int user_login_fragment_layout=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
     }
     public static final class string {
-        public static final int action_settings=0x7f090001;
+        public static final int add_new_address_string=0x7f09000e;
         public static final int app_name=0x7f090000;
+        public static final int cart_string=0x7f090009;
         /**  Content Description 
          */
-        public static final int desc_list_item_icon=0x7f090002;
-        public static final int dinner_string=0x7f090005;
-        public static final int lunch_string=0x7f090004;
-        public static final int title_activity_main=0x7f090003;
+        public static final int desc_list_item_icon=0x7f090001;
+        public static final int dinner_string=0x7f090006;
+        public static final int edit_string=0x7f090014;
+        public static final int email_string=0x7f090011;
+        public static final int enter_details_string=0x7f090015;
+        public static final int lunch_string=0x7f090005;
+        public static final int name_string=0x7f09000f;
+        public static final int no_detail_string=0x7f09000c;
+        public static final int phone_string=0x7f090010;
+        public static final int place_order_string=0x7f090008;
+        public static final int price_string=0x7f09000b;
+        public static final int quantity_string=0x7f09000a;
+        public static final int remove_string=0x7f090007;
+        public static final int rupee_string=0x7f090003;
+        public static final int select_address_string=0x7f09000d;
+        public static final int separator=0x7f090012;
+        public static final int star=0x7f090013;
+        public static final int title_activity_main=0x7f090002;
+        public static final int total_string=0x7f090004;
     }
     public static final class style {
         /** 
