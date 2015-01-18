@@ -98,7 +98,7 @@ public class MealListAdapter extends BaseAdapter {
 
 		Meal meal = getItem(position);
 
-		mealImageView.setImageResource(meal.getMealImageResource());
+		mealImageView.setImageResource(R.drawable.lunch1);
 
 		mealNameView.setText(meal.getName());
 		int mealCategory = meal.getMealCategory();
