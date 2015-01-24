@@ -2,16 +2,15 @@ package com.project.chefensa;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,16 +25,19 @@ import com.project.chefensa.adapter.CartMealListAdapter;
 import com.project.chefensa.adapter.NavDrawerListAdapter;
 import com.project.chefensa.fragment.ContactUsFragment;
 import com.project.chefensa.fragment.HowItWorksFragment;
-import com.project.chefensa.fragment.MealDetailFragment;
 import com.project.chefensa.fragment.MealOrderFragment;
 import com.project.chefensa.fragment.MyOrdersFragment;
 import com.project.chefensa.fragment.MyProfileFragment;
-import com.project.chefensa.fragment.UserLoginFragment;
+import com.project.chefensa.fragment.TabbedFragment;
+import com.project.chefensa.model.Meal;
 import com.project.chefensa.model.NavDrawerItem;
 import com.project.chefensa.util.ConstantUtil;
 
 @SuppressWarnings("deprecation")
-public class MainActivity extends Activity implements FragmentManager.OnBackStackChangedListener{
+public class MainActivity extends FragmentActivity{
+	
+	List<Meal> todaysLunchList = new ArrayList<Meal>();
+	List<Meal> todaysDinnerList = new ArrayList<Meal>();
 	
 	private Context mContext;
 	
@@ -46,10 +48,6 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
     private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
     private NavDrawerListAdapter adapter;
-	
-	//flipboard animation
-    private Handler mHandler = new Handler();
-    public boolean mShowingBack = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,42 +60,29 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list_item);
         
+        getSupportFragmentManager().beginTransaction().add(R.id.container, new TabbedFragment()).commit();
+        
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				switch(position){
 				case 0:
-					if(isLunchTime()){
-						getFragmentManager().beginTransaction().replace(R.id.container,
-										new MealDetailFragment(1, "7:00PM - 11:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
-						} else {
-							getFragmentManager().beginTransaction().replace(R.id.container,
-									new MealDetailFragment(0, "11:00AM - 3:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
-						}
+					getSupportFragmentManager().beginTransaction().replace(R.id.container, new TabbedFragment()).addToBackStack(null).commit();
 					break;
 				case 1:
-					getFragmentManager().beginTransaction().replace(R.id.container, new UserLoginFragment()).addToBackStack(null).commit();
+					getSupportFragmentManager().beginTransaction().replace(R.id.container, new MyOrdersFragment()).addToBackStack(null).commit();
 					break;
 				case 2:
-					getFragmentManager().beginTransaction().replace(R.id.container, new MyOrdersFragment()).addToBackStack(null).commit();
+					getSupportFragmentManager().beginTransaction().replace(R.id.container, new MyProfileFragment()).addToBackStack(null).commit();
 					break;
 				case 3:
-					getFragmentManager().beginTransaction().replace(R.id.container, new MyProfileFragment()).addToBackStack(null).commit();
+					getSupportFragmentManager().beginTransaction().replace(R.id.container, new HowItWorksFragment()).addToBackStack(null).commit();
 					break;
 				case 4:
-					getFragmentManager().beginTransaction().replace(R.id.container, new HowItWorksFragment()).addToBackStack(null).commit();
-					break;
-				case 5:
-					getFragmentManager().beginTransaction().replace(R.id.container, new ContactUsFragment()).addToBackStack(null).commit();
+					getSupportFragmentManager().beginTransaction().replace(R.id.container, new ContactUsFragment()).addToBackStack(null).commit();
 					break;
 				}
 				mDrawerLayout.closeDrawer(mDrawerList);
-				mHandler.post(new Runnable() {
-	    			@Override
-	    			public void run() {
-	    				invalidateOptionsMenu();
-	    			}
-	    		});
 			}
 		});
         
@@ -109,7 +94,6 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
         navMenuIcons.recycle();
         
         adapter = new NavDrawerListAdapter(this, navDrawerItems);
@@ -128,19 +112,6 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
- 
-        //flipboard animation
-        ConstantUtil.populateTestData();
-        if (savedInstanceState == null) {
-        	if(isLunchTime()){
-        		getFragmentManager().beginTransaction().add(R.id.container, new MealDetailFragment(0 , "11:00AM - 3:00PM", ConstantUtil.lunchList)).commit();
-        	} else {
-        		getFragmentManager().beginTransaction().add(R.id.container, new MealDetailFragment(1 , "7:00PM - 11:00PM", ConstantUtil.lunchList)).commit();
-        	}
-        } else {
-            mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
-        }
-        getFragmentManager().addOnBackStackChangedListener(this);
 	}
 	
 	@Override
@@ -153,23 +124,6 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		MenuItem switchMenuItem;
-		if(isLunchTime()){
-			switchMenuItem = menu.add(Menu.NONE, R.id.action_flip,
-					Menu.NONE, mShowingBack ? R.string.lunch_string : R.string.dinner_string);
-		} else {
-			switchMenuItem = menu.add(Menu.NONE, R.id.action_flip,
-					Menu.NONE, mShowingBack ? R.string.dinner_string : R.string.lunch_string);
-		}
-		switchMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		MenuItem cartMenuItem = menu.findItem(R.id.action_cart);
-		/*if (fragmentType != FRAGMENT_TYPE_MEALLISTFRAGMENT) {
-			switchMenuItem.setVisible(false);
-			cartMenuItem.setVisible(false);
-		} else {
-			switchMenuItem.setVisible(true);
-			cartMenuItem.setVisible(true);
-		}*/
 		return true;
 	}
 
@@ -178,39 +132,11 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-		if (item.getItemId() == R.id.action_flip) {
-			flipCard();
-            return true;
-		}
 		if(item.getItemId() == R.id.action_cart){
 			showCart();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	private void flipCard() {
-		if (mShowingBack) {
-			getFragmentManager().popBackStack();
-			return;
-		}
-
-		mShowingBack = true;
-		if(isLunchTime()){
-		getFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in,
-						R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.container,
-						new MealDetailFragment(1, "7:00PM - 11:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
-		} else {
-			getFragmentManager().beginTransaction().setCustomAnimations(R.animator.card_flip_right_in,
-					R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out).replace(R.id.container,
-					new MealDetailFragment(0, "11:00AM - 3:00PM", ConstantUtil.dinnerList)).addToBackStack(null).commit();
-		}
-		mHandler.post(new Runnable() {
-			@Override
-			public void run() {
-				invalidateOptionsMenu();
-			}
-		});
 	}
 	
     @Override
@@ -224,12 +150,6 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-	@Override
-	public void onBackStackChanged() {
-		mShowingBack = (getFragmentManager().getBackStackEntryCount() > 0);
-        invalidateOptionsMenu();
-	}
 	
 	public void showCart(){
 		final Dialog cartDialog = new Dialog(mContext);
@@ -256,22 +176,11 @@ public class MainActivity extends Activity implements FragmentManager.OnBackStac
 		placeOrderButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getFragmentManager().beginTransaction().replace(R.id.container, new MealOrderFragment()).addToBackStack(null).commit();
+				getSupportFragmentManager().beginTransaction().replace(R.id.container, new MealOrderFragment()).addToBackStack(null).commit();
 				cartDialog.dismiss();
 			}
 		});
 		cartDialog.show();
-	}
-	
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		mHandler.post(new Runnable() {
-			@Override
-			public void run() {
-				invalidateOptionsMenu();
-			}
-		});
 	}
 	
 	private boolean isLunchTime(){

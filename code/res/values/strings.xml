@@ -6,7 +6,6 @@
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>Home</item>
-        <item>Login/Register</item>
         <item>My Orders</item>
         <item>My Profile</item>
         <item>How it Works</item>
@@ -17,7 +16,6 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
-        <item>@drawable/ic_people</item>
         <item>@drawable/ic_photos</item>
         <item>@drawable/ic_communities</item>
         <item>@drawable/ic_pages</item>
@@ -27,18 +25,13 @@
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_main">Chefensa</string>
-    
-    <string-array name="order_quanity_spinner_data">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
+   
     
     <string name="rupee_string">Rs</string>
     <string name="total_string">Total</string>
     <string name="lunch_string">Lunch</string>
     <string name="dinner_string">Dinner</string>
+    <string name="zero_string">0</string>
     
     <string name="remove_string">Remove</string>
     <string name="place_order_string">Place Order</string>
@@ -46,18 +39,22 @@
     <string name="quantity_string">Quantity</string>
     <string name="price_string">Price</string>
     
-    <string name="no_detail_string">No Details are saved</string>
     <string name="select_address_string">Select Address</string>
     <string name="add_new_address_string">Add new Addrress</string>
     
     <string name="name_string">Name</string>
     <string name="phone_string">Phone</string>
     <string name="email_string">Email</string>
+    <string name="address_string">Address</string>
+    <string name="flat_no_string">Flat No.</string>
+    <string name="building_name_string">Building Name</string>
+    <string name="street_name_string">Street Name</string>
+    <string name="locality_string">Locality</string>
+    <string name="pin_string">Pin Code</string>
+    <string name="landmark_string">Landmark</string>
+    <string name="required_string">Required</string>
     
-    <string name="separator">:</string>
-    <string name="star">*</string>
-    <string name="edit_string">Edit</string>
-    
-    <string name="enter_details_string">Tap to enter Details</string>
+    <string name="cod_string">COD</string>
+    <string name="pay_now_string">Pay Now</string>
 
 </resources>

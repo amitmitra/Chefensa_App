@@ -1,35 +1,56 @@
 package com.project.chefensa.model;
 
 public class Customer {
-	
+
 	private long id;
+	private String deviceId;
 	private String customerName;
-	private String primaryNumber;
-	private String secondaryNumber;
+	private String primaryPhone;
+	private String secondaryPhone;
 	private String primaryEmail;
 	private String secondaryEmail;
+	private long totalHitsOnApp;
+	private long noOfTImesOrdered;
+	private long timesStayingMoreThan2Mins;
+	private String gcmId;
 	
 	public Customer(){
 		
 	}
 	
-	public Customer(String customerName, String primaryNumber,
-			String secondaryNumber, String primaryEmail, String secondaryEmail) {
+	public Customer(String deviceId){
+		this.deviceId = deviceId;
+	}
+	
+	public Customer(long id, String deviceId, String customerName,
+			String primaryPhone, String secondaryPhone, String primaryEmail,
+			String secondaryEmail, long totalHitsOnApp, long noOfTImesOrdered,
+			long timesStayingMoreThan2Mins) {
+		this.id = id;
+		this.deviceId = deviceId;
 		this.customerName = customerName;
-		this.primaryNumber = primaryNumber;
-		this.secondaryNumber = secondaryNumber;
+		this.primaryPhone = primaryPhone;
+		this.secondaryPhone = secondaryPhone;
 		this.primaryEmail = primaryEmail;
 		this.secondaryEmail = secondaryEmail;
+		this.totalHitsOnApp = totalHitsOnApp;
+		this.noOfTImesOrdered = noOfTImesOrdered;
+		this.timesStayingMoreThan2Mins = timesStayingMoreThan2Mins;
 	}
 
-	public Customer(long id, String customerName, String primaryNumber,
-			String secondaryNumber, String primaryEmail, String secondaryEmail) {
-		this.id = id;
+	public Customer(String deviceId, String customerName, String primaryPhone,
+			String secondaryPhone, String primaryEmail, String secondaryEmail,
+			long totalHitsOnApp, long noOfTImesOrdered,
+			long timesStayingMoreThan2Mins) {
+		this.deviceId = deviceId;
 		this.customerName = customerName;
-		this.primaryNumber = primaryNumber;
-		this.secondaryNumber = secondaryNumber;
+		this.primaryPhone = primaryPhone;
+		this.secondaryPhone = secondaryPhone;
 		this.primaryEmail = primaryEmail;
 		this.secondaryEmail = secondaryEmail;
+		this.totalHitsOnApp = totalHitsOnApp;
+		this.noOfTImesOrdered = noOfTImesOrdered;
+		this.timesStayingMoreThan2Mins = timesStayingMoreThan2Mins;
 	}
 
 	public long getId() {
@@ -40,6 +61,14 @@ public class Customer {
 		this.id = id;
 	}
 
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
 	public String getCustomerName() {
 		return customerName;
 	}
@@ -48,20 +77,20 @@ public class Customer {
 		this.customerName = customerName;
 	}
 
-	public String getPrimaryNumber() {
-		return primaryNumber;
+	public String getPrimaryPhone() {
+		return primaryPhone;
 	}
 
-	public void setPrimaryNumber(String primaryNumber) {
-		this.primaryNumber = primaryNumber;
+	public void setPrimaryPhone(String primaryPhone) {
+		this.primaryPhone = primaryPhone;
 	}
 
-	public String getSecondaryNumber() {
-		return secondaryNumber;
+	public String getSecondaryPhone() {
+		return secondaryPhone;
 	}
 
-	public void setSecondaryNumber(String secondaryNumber) {
-		this.secondaryNumber = secondaryNumber;
+	public void setSecondaryPhone(String secondaryPhone) {
+		this.secondaryPhone = secondaryPhone;
 	}
 
 	public String getPrimaryEmail() {
@@ -78,5 +107,37 @@ public class Customer {
 
 	public void setSecondaryEmail(String secondaryEmail) {
 		this.secondaryEmail = secondaryEmail;
+	}
+
+	public long getTotalHitsOnApp() {
+		return totalHitsOnApp;
+	}
+
+	public void setTotalHitsOnApp(long totalHitsOnApp) {
+		this.totalHitsOnApp = totalHitsOnApp;
+	}
+
+	public long getNoOfTImesOrdered() {
+		return noOfTImesOrdered;
+	}
+
+	public void setNoOfTImesOrdered(long noOfTImesOrdered) {
+		this.noOfTImesOrdered = noOfTImesOrdered;
+	}
+
+	public long getTimesStayingMoreThan2Mins() {
+		return timesStayingMoreThan2Mins;
+	}
+
+	public void setTimesStayingMoreThan2Mins(long timesStayingMoreThan2Mins) {
+		this.timesStayingMoreThan2Mins = timesStayingMoreThan2Mins;
+	}
+
+	public String getGcmId() {
+		return gcmId;
+	}
+
+	public void setGcmId(String gcmId) {
+		this.gcmId = gcmId;
 	}
 }

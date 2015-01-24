@@ -38,8 +38,8 @@ public class ChefensaDataSource {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHandler.COLUMN_CUSTOMERID, customer.getId());
 			values.put(DatabaseHandler.COLUMN_CUSTOMERNAME, customer.getCustomerName());
-			values.put(DatabaseHandler.COLUMN_PRIMARYNUMBER, customer.getPrimaryNumber());
-			values.put(DatabaseHandler.COLUMN_SECONDARYNUMBER, customer.getSecondaryNumber());
+			values.put(DatabaseHandler.COLUMN_PRIMARYNUMBER, customer.getPrimaryPhone());
+			values.put(DatabaseHandler.COLUMN_SECONDARYNUMBER, customer.getSecondaryPhone());
 			values.put(DatabaseHandler.COLUMN_PRIMARYEMAIL, customer.getPrimaryEmail());
 			values.put(DatabaseHandler.COLUMN_SECONDARYEMAIL, customer.getSecondaryEmail());
 			database.insert(DatabaseHandler.TABLE_CUSTOMER, null, values);
@@ -57,8 +57,8 @@ public class ChefensaDataSource {
 			customer = new Customer();
 			customer.setId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CUSTOMERID)));
 			customer.setCustomerName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CUSTOMERNAME)));
-			customer.setPrimaryNumber(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIMARYNUMBER)));
-			customer.setSecondaryNumber(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SECONDARYNUMBER)));
+			customer.setPrimaryPhone(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIMARYNUMBER)));
+			customer.setSecondaryPhone(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SECONDARYNUMBER)));
 			customer.setPrimaryEmail(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIMARYEMAIL)));
 			customer.setSecondaryEmail(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SECONDARYEMAIL)));
 		}

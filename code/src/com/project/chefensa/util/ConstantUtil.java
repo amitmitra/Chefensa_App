@@ -31,26 +31,26 @@ public class ConstantUtil {
 		public static List<Meal> dinnerList = new ArrayList<Meal>();
 	
 	public static void populateTestData(){
-		Meal lunch1 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal lunch1 = new Meal("Rajasthani Thali", "Butter Chicken, Rice, Daal, Roti", "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		lunchList.add(lunch1);
-		Meal lunch2 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal lunch2 = new Meal("Rajasthani Thali", "Butter Chicken, Roti, Rice, Daal", "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		lunchList.add(lunch2);
-		Meal lunch3 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal lunch3 = new Meal("Rajasthani Thali", "Aaloo tamatar, poori", "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		lunchList.add(lunch3);
-		Meal lunch4 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal lunch4 = new Meal("Rajasthani Thali", "Gulab Jamun", "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		lunchList.add(lunch4);
-		Meal lunch5 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal lunch5 = new Meal("Rajasthani Thali", "Baigan Bharta, Roti, Rayta", "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		lunchList.add(lunch5);
 		
-		Meal dinner1 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal dinner1 = new Meal("Rajasthani Thali", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		dinnerList.add(dinner1);
-		Meal dinner2 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
+		Meal dinner2 = new Meal("Rajasthani Thali", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
 				1, null, "Amit Mitra", null, 0, 0, 100, 1, 20,  3.5f);
 		dinnerList.add(dinner2);
 		Meal dinner3 = new Meal("lunch1", null, "Desc1", "#North Indian #Sweat", 0, null, null, 
