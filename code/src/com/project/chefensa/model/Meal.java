@@ -3,9 +3,9 @@ package com.project.chefensa.model;
 public class Meal {
 
 	private long mealId;
-	private String name;
+	private String mealName;
 	private String mealContent;
-	private String description;
+	private String mealDescription;
 	private String mealType;
 	private int mealCategory;
 	private String mealNote;
@@ -16,26 +16,27 @@ public class Meal {
 	private String chefImageUrl;
 	private long chefId;
 	private int spicyness;
-	private int price;
+	private int mealPrice;
 	private int mealQuantity;
-	private int quantityAvailable;
-	private double mealRating;
-	private int isMealInCart;
+	private int availability;
+	private double rating;
 	private int mealCount;
 	
 	public Meal() {
 		
 	}
 
-	public Meal(String name, String mealContent, String description,
-			String mealType, int mealCategory, String mealNote,
-			String mealNutrients, int mealTime, String mealImageUrl, String chefName,
-			String chefImageUrl, long chefId, int spicyness, int price,
-			int mealQuantity, int quantityAvailable, double mealRating, int isMealInCart,
-			int mealCount) {
-		this.name = name;
+	public Meal(long mealId, String mealName, String mealContent,
+			String mealDescription, String mealType, int mealCategory,
+			String mealNote, String mealNutrients, int mealTime,
+			String mealImageUrl, String chefName, String chefImageUrl,
+			long chefId, int spicyness, int mealPrice, int mealQuantity,
+			int availability, double rating, int mealCount) {
+		super();
+		this.mealId = mealId;
+		this.mealName = mealName;
 		this.mealContent = mealContent;
-		this.description = description;
+		this.mealDescription = mealDescription;
 		this.mealType = mealType;
 		this.mealCategory = mealCategory;
 		this.mealNote = mealNote;
@@ -46,48 +47,23 @@ public class Meal {
 		this.chefImageUrl = chefImageUrl;
 		this.chefId = chefId;
 		this.spicyness = spicyness;
-		this.price = price;
+		this.mealPrice = mealPrice;
 		this.mealQuantity = mealQuantity;
-		this.quantityAvailable = quantityAvailable;
-		this.mealRating = mealRating;
-		this.isMealInCart = isMealInCart;
+		this.availability = availability;
+		this.rating = rating;
 		this.mealCount = mealCount;
 	}
-	
-	public Meal(String name, String mealContent, String description,
-			String mealType, int mealCategory, String mealNote,
-			String mealNutrients, int mealTime, String mealImageUrl, String chefName,
-			String chefImageUrl, long chefId, int spicyness, int price,
-			int mealQuantity, int quantityAvailable, float mealRating) {
-		this.name = name;
-		this.mealContent = mealContent;
-		this.description = description;
-		this.mealType = mealType;
-		this.mealCategory = mealCategory;
-		this.mealNote = mealNote;
-		this.mealNutrients = mealNutrients;
-		this.mealTime = mealTime;
-		this.mealImageUrl = mealImageUrl;
-		this.chefName = chefName;
-		this.chefImageUrl = chefImageUrl;
-		this.chefId = chefId;
-		this.spicyness = spicyness;
-		this.price = price;
-		this.mealQuantity = mealQuantity;
-		this.quantityAvailable = quantityAvailable;
-		this.mealRating = mealRating;
-	}
 
-	public Meal(long mealId, String name, String mealContent,
-			String description, String mealType, int mealCategory,
-			String mealNote, String mealNutrients, int mealTime, String mealImageUrl,
+	public Meal(String mealName, String mealContent, String mealDescription,
+			String mealType, int mealCategory, String mealNote,
+			String mealNutrients, int mealTime, String mealImageUrl,
 			String chefName, String chefImageUrl, long chefId, int spicyness,
-			int price, int mealQuantity, int quantityAvailable,
-			int isMealInCart, int mealCount) {
-		this.mealId = mealId;
-		this.name = name;
+			int mealPrice, int mealQuantity, int availability, double rating,
+			int mealCount) {
+		super();
+		this.mealName = mealName;
 		this.mealContent = mealContent;
-		this.description = description;
+		this.mealDescription = mealDescription;
 		this.mealType = mealType;
 		this.mealCategory = mealCategory;
 		this.mealNote = mealNote;
@@ -98,10 +74,10 @@ public class Meal {
 		this.chefImageUrl = chefImageUrl;
 		this.chefId = chefId;
 		this.spicyness = spicyness;
-		this.price = price;
+		this.mealPrice = mealPrice;
 		this.mealQuantity = mealQuantity;
-		this.quantityAvailable = quantityAvailable;
-		this.isMealInCart = isMealInCart;
+		this.availability = availability;
+		this.rating = rating;
 		this.mealCount = mealCount;
 	}
 
@@ -113,12 +89,12 @@ public class Meal {
 		this.mealId = mealId;
 	}
 
-	public String getName() {
-		return name;
+	public String getMealName() {
+		return mealName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMealName(String mealName) {
+		this.mealName = mealName;
 	}
 
 	public String getMealContent() {
@@ -129,12 +105,12 @@ public class Meal {
 		this.mealContent = mealContent;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getMealDescription() {
+		return mealDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setMealDescription(String mealDescription) {
+		this.mealDescription = mealDescription;
 	}
 
 	public String getMealType() {
@@ -217,12 +193,12 @@ public class Meal {
 		this.spicyness = spicyness;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getMealPrice() {
+		return mealPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setMealPrice(int mealPrice) {
+		this.mealPrice = mealPrice;
 	}
 
 	public int getMealQuantity() {
@@ -233,28 +209,20 @@ public class Meal {
 		this.mealQuantity = mealQuantity;
 	}
 
-	public int getQuantityAvailable() {
-		return quantityAvailable;
+	public int getAvailability() {
+		return availability;
 	}
 
-	public void setQuantityAvailable(int quantityAvailable) {
-		this.quantityAvailable = quantityAvailable;
+	public void setAvailability(int availability) {
+		this.availability = availability;
 	}
 
-	public int getIsMealInCart() {
-		return isMealInCart;
+	public double getRating() {
+		return rating;
 	}
 
-	public void setIsMealInCart(int isMealInCart) {
-		this.isMealInCart = isMealInCart;
-	}
-
-	public double getMealRating() {
-		return mealRating;
-	}
-
-	public void setMealRating(double mealRating) {
-		this.mealRating = mealRating;
+	public void setRating(double rating) {
+		this.rating = rating;
 	}
 
 	public int getMealCount() {

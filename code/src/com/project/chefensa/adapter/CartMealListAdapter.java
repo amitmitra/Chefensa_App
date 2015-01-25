@@ -1,5 +1,6 @@
 package com.project.chefensa.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -7,32 +8,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.project.chefensa.R;
+import com.project.chefensa.db.ChefensaDataSource;
 import com.project.chefensa.model.Meal;
 
 public class CartMealListAdapter extends BaseAdapter {
 	
-	List<Meal> mealList;
+	List<Meal> cartList;
 	Context mContext;
 	
-	public CartMealListAdapter(List<Meal> mealList, Context mContext) {
-		this.mealList = mealList;
+	public CartMealListAdapter(Context mContext) {
 		this.mContext = mContext;
+        cartList = new ArrayList<Meal>();
+        getMealsInCart();
 	}
+    private void getMealsInCart(){
+        List<Meal> mealList = ChefensaDataSource.getInstance(mContext).getMeals();
+        for (int i = 0; i < mealList.size(); i++) {
+            Meal element = mealList.get(i);
+            if(element.getMealCount()>0){
+                cartList.add(element);
+            }
+        }
+    }
 
 	@Override
 	public int getCount() {
-		return mealList.size();
+		return cartList.size();
 	}
 
 	@Override
 	public Meal getItem(int position) {
-		return mealList.get(position);
+		return cartList.get(position);
 	}
 
 	@Override
@@ -41,7 +51,7 @@ public class CartMealListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		if(convertView == null){
 			LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.cart_list_item_view, parent, false);
@@ -58,15 +68,15 @@ public class CartMealListAdapter extends BaseAdapter {
 		Meal meal = getItem(position);
 		
 		itemNumberView.setText((position+1) + ". ");
-		mealNameView.setText(meal.getName());
+		mealNameView.setText(meal.getMealName());
 		mealContentView.setText(meal.getMealContent());
-		mealQuantityView.setText("2");
-		mealPriceView.setText("200");
+		mealQuantityView.setText(cartList.get(position).getMealCount()+"");
+		mealPriceView.setText(cartList.get(position).getMealCount()+"");
 		
 		removeButton.setOnClickListener(new View.OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				
+				ChefensaDataSource.getInstance(mContext).removeFromCart(cartList.get(position).getMealId());
 			}
 		});
 		return convertView;

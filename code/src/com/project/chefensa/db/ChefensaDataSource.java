@@ -3,6 +3,7 @@ package com.project.chefensa.db;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.project.chefensa.model.Address;
 import com.project.chefensa.model.Customer;
@@ -17,22 +18,32 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ChefensaDataSource {
 
-	private SQLiteDatabase database;
-	private DatabaseHandler dbHandler;
+	private static SQLiteDatabase database;
+	private static DatabaseHandler dbHandler;
+    private  static ChefensaDataSource mInstance;
+    
+    public static ChefensaDataSource source;
 	
-	public ChefensaDataSource(Context mContext) {
+	private ChefensaDataSource(Context mContext) {
 		dbHandler = new DatabaseHandler(mContext);
 	}
+    public static synchronized ChefensaDataSource getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new ChefensaDataSource(context);
+        }
+        return mInstance;
+    }
 	
-	public void open() throws SQLException{
+	private void open() throws SQLException{
 		database = dbHandler.getWritableDatabase();
 	}
 	
-	public void close(){
-		dbHandler.close();
+	private void close(){
+		//dbHandler.close();
 	}
 	
 	public void addCustomer(Customer customer){
+        open();
 		database.beginTransaction();
 		try{
 			ContentValues values = new ContentValues();
@@ -46,10 +57,12 @@ public class ChefensaDataSource {
 			database.setTransactionSuccessful();
 		} finally{
 			database.endTransaction();
+            close();
 		}
 	}
 	
 	public Customer getCustomer(){
+        open();
 		Cursor cursor = database.query(DatabaseHandler.TABLE_CUSTOMER, null, null, null, null, null, null, null);
 		Customer customer = null;
 		if(cursor != null && cursor.getCount() > 0){
@@ -62,20 +75,32 @@ public class ChefensaDataSource {
 			customer.setPrimaryEmail(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIMARYEMAIL)));
 			customer.setSecondaryEmail(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SECONDARYEMAIL)));
 		}
+        close();
 		return customer;
 	}
 	
 	public void deleteCustomer(){
+        open();
 		database.beginTransaction();
 		try{
 			database.delete(DatabaseHandler.TABLE_CUSTOMER, null, null);
 			database.setTransactionSuccessful();
 		}finally{
 			database.endTransaction();
+            close();
 		}
 	}
-	
+	public void clearMealTable(){
+        open();
+        try {
+            database.delete(DatabaseHandler.TABLE_MEAL, null, null);
+        }catch (SQLException e){
+
+        }
+
+    }
 	public List<Address> getAllAddress(){
+        open();
 		List<Address> addresses = new ArrayList<Address>();
 		Cursor cursor = database.query(DatabaseHandler.TABLE_ADDRESS, null, null, null, null, null, null);
 		if(cursor != null && cursor.getCount() > 0){
@@ -95,10 +120,12 @@ public class ChefensaDataSource {
 				addresses.add(address);
 			} while(cursor.moveToNext());
 		}
+        close();
 		return addresses;
 	}
 	
 	public void addAddress(Address address) {
+        open();
 		database.beginTransaction();
 		try {
 			ContentValues values = new ContentValues();
@@ -114,10 +141,12 @@ public class ChefensaDataSource {
 			database.setTransactionSuccessful();
 		} finally {
 			database.endTransaction();
+            close();
 		}
 	}
 	
 	public void removeAddress(long addressId) {
+        open();
 		database.beginTransaction();
 		try {
 			database.delete(DatabaseHandler.TABLE_ADDRESS,
@@ -126,19 +155,21 @@ public class ChefensaDataSource {
 			database.setTransactionSuccessful();
 		} finally {
 			database.endTransaction();
+            close();
 		}
 	}
 	
 	public void addMeals(List<Meal> meals) {
+        open();
 		database.beginTransaction();
 		try {
 			for (Iterator<Meal> iterator = meals.iterator(); iterator.hasNext();) {
 				Meal meal = iterator.next();
 				ContentValues values = new ContentValues();
 				values.put(DatabaseHandler.COLUMN_MEALID, meal.getMealId());
-				values.put(DatabaseHandler.COLUMN_NAME, meal.getName());
+				values.put(DatabaseHandler.COLUMN_NAME, meal.getMealName());
 				values.put(DatabaseHandler.COLUMN_MEALCONTENT, meal.getMealContent());
-				values.put(DatabaseHandler.COLUMN_DESCRIPTION, meal.getDescription());
+				values.put(DatabaseHandler.COLUMN_DESCRIPTION, meal.getMealDescription());
 				values.put(DatabaseHandler.COLUMN_MEALTYPE, meal.getMealType());
 				values.put(DatabaseHandler.COLUMN_MEALCATEGORY, meal.getMealCategory());
 				values.put(DatabaseHandler.COLUMN_MEALNOTE, meal.getMealNote());
@@ -149,30 +180,32 @@ public class ChefensaDataSource {
 				values.put(DatabaseHandler.COLUMN_CHEFIMAGEURL, meal.getChefImageUrl());
 				values.put(DatabaseHandler.COLUMN_CHEFID, meal.getChefId());
 				values.put(DatabaseHandler.COLUMN_SPICYNESS, meal.getSpicyness());
-				values.put(DatabaseHandler.COLUMN_PRICE, meal.getPrice());
+				values.put(DatabaseHandler.COLUMN_PRICE, meal.getMealPrice());
 				values.put(DatabaseHandler.COLUMN_MEALQUANTITY, meal.getMealQuantity());
-				values.put(DatabaseHandler.COLUMN_QUANTITYAVAILABLE, meal.getQuantityAvailable());
-				values.put(DatabaseHandler.COLUMN_MEALRATING, meal.getMealRating());
-				values.put(DatabaseHandler.COLUMN_ISMEALINCART, meal.getIsMealInCart());
+				values.put(DatabaseHandler.COLUMN_AVAILABILITY, meal.getAvailability());
+				values.put(DatabaseHandler.COLUMN_MEALRATING, meal.getRating());
+				values.put(DatabaseHandler.COLUMN_MEALCOUNT, meal.getMealCount());
 				database.insertOrThrow(DatabaseHandler.TABLE_MEAL, null, values);
 			}
 			database.setTransactionSuccessful();
 		} finally {
 			database.endTransaction();
+            close();
 		}
 	}
 	
 	public List<Meal> getMeals(){
 		List<Meal> allMealsList = new ArrayList<Meal>();
+        open();
 		Cursor cursor = database.query(DatabaseHandler.TABLE_MEAL, null, null, null, null, null, null);
 		if(cursor != null && cursor.getCount() > 0){
 			cursor.moveToFirst();
 			do{
 				Meal meal = new Meal();
 				meal.setMealId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALID)));
-				meal.setName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_NAME)));
+				meal.setMealName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_NAME)));
 				meal.setMealContent(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCONTENT)));
-				meal.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_DESCRIPTION)));
+				meal.setMealDescription(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_DESCRIPTION)));
 				meal.setMealType(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALTYPE)));
 				meal.setMealCategory(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCATEGORY)));
 				meal.setMealNote(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALNOTE)));
@@ -183,19 +216,21 @@ public class ChefensaDataSource {
 				meal.setChefImageUrl(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CHEFIMAGEURL)));
 				meal.setChefId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CHEFID)));
 				meal.setSpicyness(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SPICYNESS)));
-				meal.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRICE)));
+				meal.setMealPrice(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRICE)));
 				meal.setMealQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALQUANTITY)));
-				meal.setQuantityAvailable(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_QUANTITYAVAILABLE)));
-				meal.setMealRating(cursor.getFloat(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALRATING)));
+				meal.setAvailability(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_AVAILABILITY)));
+				meal.setRating(cursor.getFloat(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALRATING)));
+                meal.setMealCount(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCOUNT)));
 				allMealsList.add(meal);
 			} while(cursor.moveToNext());
 		}
-		
+		close();
 		return allMealsList;
 	}
 	
 	public List<Meal> getMeals(int mealTime){
 		List<Meal> mealsList = new ArrayList<Meal>();
+        open();
 		Cursor cursor = database.query(DatabaseHandler.TABLE_MEAL, null,
 				DatabaseHandler.COLUMN_MEALTIME + " = ?",
 				new String[] { String.valueOf(mealTime) }, null, null, null);
@@ -204,9 +239,9 @@ public class ChefensaDataSource {
 			do{
 				Meal meal = new Meal();
 				meal.setMealId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALID)));
-				meal.setName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_NAME)));
+				meal.setMealName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_NAME)));
 				meal.setMealContent(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCONTENT)));
-				meal.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_DESCRIPTION)));
+				meal.setMealDescription(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_DESCRIPTION)));
 				meal.setMealType(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALTYPE)));
 				meal.setMealCategory(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCATEGORY)));
 				meal.setMealNote(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALNOTE)));
@@ -217,53 +252,141 @@ public class ChefensaDataSource {
 				meal.setChefImageUrl(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CHEFIMAGEURL)));
 				meal.setChefId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CHEFID)));
 				meal.setSpicyness(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SPICYNESS)));
-				meal.setPrice(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRICE)));
+				meal.setMealPrice(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRICE)));
 				meal.setMealQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALQUANTITY)));
-				meal.setQuantityAvailable(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_QUANTITYAVAILABLE)));
-				meal.setMealRating(cursor.getFloat(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALRATING)));
+				meal.setAvailability(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_AVAILABILITY)));
+				meal.setRating(cursor.getFloat(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALRATING)));
+                meal.setMealCount(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCOUNT)));
 				mealsList.add(meal);
 			} while(cursor.moveToNext());
 		}
-		
+		close();
 		return mealsList;
 	}
-	
+
+    public int updateMealCount(Map<Long,Integer> idCountMap) {
+        open();
+        //database.beginTransaction();
+        int result = 0;
+        try {
+            Iterator it = idCountMap.entrySet().iterator();
+            ContentValues values = new ContentValues();
+            while (it.hasNext()) {
+                Map.Entry pairs = (Map.Entry)it.next();
+                values.put(DatabaseHandler.COLUMN_AVAILABILITY,(Integer)pairs.getValue());
+                it.remove(); // avoids a ConcurrentModificationException
+                result = database.update(
+                        DatabaseHandler.TABLE_MEAL,
+                        values,
+                        DatabaseHandler.COLUMN_MEALID + " = ?",
+                        new String[] { String.valueOf((Long)pairs.getKey())
+                        });
+                values.remove(DatabaseHandler.COLUMN_AVAILABILITY);
+            }
+
+            //database.setTransactionSuccessful();
+        } finally {
+            //database.endTransaction();
+            close();
+        }
+        return result;
+    }
 	public int addToCart(long mealId, int count) {
-		database.beginTransaction();
+        open();
+		//database.beginTransaction();
 		int result = 0;
 		try {
 			ContentValues values = new ContentValues();
-			values.put(DatabaseHandler.COLUMN_ISMEALINCART,
-					ConstantUtil.MEAL_IN_CART);
-			values.put(DatabaseHandler.COLUMN_MEALCOUNT, count);
+            int cartCount = getInCartCount(mealId);
+			values.put(DatabaseHandler.COLUMN_MEALCOUNT, cartCount+1);
 			result = database.update(
 					DatabaseHandler.TABLE_MEAL,
 					values,
-					DatabaseHandler.COLUMN_MEALID + " = ? and "
-							+ DatabaseHandler.COLUMN_ISMEALINCART + " = ?",
-					new String[] { String.valueOf(mealId),
-							String.valueOf(ConstantUtil.MEAL_NOT_IN_CART) });
-			database.setTransactionSuccessful();
+					DatabaseHandler.COLUMN_MEALID + " = ?"
+							, //todo right logic
+					new String[] { String.valueOf(mealId)
+							 });
+			//database.setTransactionSuccessful();
 		} finally {
-			database.endTransaction();
+			//database.endTransaction();
+            close();
 		}
 		return result;
 	}
-	
+
+    public int decreaseCartCount(long mealId) {
+        open();
+        database.beginTransaction();
+        int result = 0;
+        try {
+            ContentValues values = new ContentValues();
+            int cartCount = getInCartCount(mealId);
+            if(cartCount>0) {
+                values.put(DatabaseHandler.COLUMN_MEALCOUNT, cartCount - 1);
+                result = database.update(
+                        DatabaseHandler.TABLE_MEAL,
+                        values,
+                        DatabaseHandler.COLUMN_MEALID + " = ?"
+                        , //todo right logic
+                        new String[]{String.valueOf(mealId)
+                        });
+                database.setTransactionSuccessful();
+            }
+            else{
+                return 0;
+            }
+        } finally {
+            database.endTransaction();
+            close();
+        }
+        return result;
+    }
+
+    public int getInCartCount(long mealId){
+        int count =0;
+        List<Meal> mealsList = new ArrayList<Meal>();
+        open();
+        Cursor cursor = database.query(DatabaseHandler.TABLE_MEAL, null,
+                DatabaseHandler.COLUMN_MEALID+ " = ?",
+                new String[] { String.valueOf(mealId) }, null, null, null);
+        if(cursor != null && cursor.getCount() > 0){
+            cursor.moveToFirst();
+            count =cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_MEALCOUNT));
+        }
+        close();
+        return count;
+    }
+    public int getAvailableCount(long mealId){
+        int count =0;
+        List<Meal> mealsList = new ArrayList<Meal>();
+        open();
+        Cursor cursor = database.query(DatabaseHandler.TABLE_MEAL, null,
+                DatabaseHandler.COLUMN_MEALID+ " = ?",
+                new String[] { String.valueOf(mealId) }, null, null, null);
+        if(cursor != null && cursor.getCount() > 0){
+            cursor.moveToFirst();
+            count =cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_AVAILABILITY));
+        }
+        close();
+        return count;
+    }
+
 	public int removeFromCart(long mealId) {
+        open();
 		database.beginTransaction();
 		int result = 0;
 		try {
 			ContentValues values = new ContentValues();
-			values.put(DatabaseHandler.COLUMN_ISMEALINCART,
-					ConstantUtil.MEAL_NOT_IN_CART);
+			/*values.put(DatabaseHandler.COLUMN_ISMEALINCART,
+					ConstantUtil.MEAL_NOT_IN_CART);*/
 			values.put(DatabaseHandler.COLUMN_MEALCOUNT, 0);
-			result = database.update(DatabaseHandler.TABLE_MEAL, values,
+			/*result = database.update(DatabaseHandler.TABLE_MEAL, values,
 					DatabaseHandler.COLUMN_MEALID + " = ? and " + DatabaseHandler.COLUMN_ISMEALINCART + " = ?",
-					new String[] { String.valueOf(mealId), String.valueOf(ConstantUtil.MEAL_IN_CART) });
+					new String[] { String.valueOf(mealId), String.valueOf(ConstantUtil.MEAL_IN_CART) });*/
 			database.setTransactionSuccessful();
 		} finally {
 			database.endTransaction();
+            close();
 		}
 		return result;
 	}

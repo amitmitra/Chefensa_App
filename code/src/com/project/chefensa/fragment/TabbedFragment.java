@@ -27,7 +27,7 @@ public class TabbedFragment extends Fragment implements OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ConstantUtil.populateTestData();
+      //  ConstantUtil.populateTestData();
     }
  
     @Override

@@ -41,7 +41,7 @@ public class MealOrderFragment extends Fragment {
 			TextView mealPriceView = (TextView)view.findViewById(R.id.meal_price_view);
 			i++;
 			countView.setText(i + ".");
-			mealNameView.setText(meal.getName());
+			mealNameView.setText(meal.getMealName());
 			mealConView.setText(meal.getMealContent());
 			mealQuantityView.setText("2");
 			mealPriceView.setText("Rs 200");

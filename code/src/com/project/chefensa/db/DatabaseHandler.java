@@ -27,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_SPICYNESS = "spicyness";
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_MEALQUANTITY = "mealQuantity";
-    public static final String COLUMN_QUANTITYAVAILABLE = "quantityAvailable";
+    public static final String COLUMN_AVAILABILITY = "quantityAvailable";
     public static final String COLUMN_MEALRATING = "mealRating";
     public static final String COLUMN_ISMEALINCART = "isMealInCart";
     public static final String COLUMN_MEALCOUNT = "mealCount";
@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_PRIMARYEMAIL = "primaryEmail";
     public static final String COLUMN_SECONDARYEMAIL = "secondaryEmail";
     
-    public static final String TABLE_ORDER = "order";
+    public static final String TABLE_ORDER = "ordertable";
     public static final String COLUMN_ORDERID = "id";
     public static final String COLUMN_ORDERMEALID = "mealId";
     public static final String COLUMN_ORDERADDRESSID = "addressId";
@@ -62,16 +62,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_STATUS = "status";
     
 	private static final String CREATE_TABLE_MEAL = "CREATE TABLE " + TABLE_MEAL 
-			+ "(" + COLUMN_MEALID + " INTEGER PRIMARY KEY, " + COLUMN_NAME
+			+ "(" + COLUMN_MEALID + " INTEGER, " + COLUMN_NAME
 			+ " TEXT, " + COLUMN_MEALCONTENT + " TEXT, " + COLUMN_DESCRIPTION
 			+ " TEXT, " + COLUMN_MEALTYPE + " TEXT, " + COLUMN_MEALCATEGORY
 			+ " INTEGER, " + COLUMN_MEALNOTE + " TEXT, " + COLUMN_MEALNUTRIENTS + " TEXT, " + COLUMN_MEALTIME 
 			+ " INTEGER, " + COLUMN_MEALIMAGEURL + " TEXT, " + COLUMN_CHEFNAME
 			+ " TEXT, " + COLUMN_CHEFIMAGEURL + " TEXT, " + COLUMN_CHEFID
 			+ " INTEGER, " + COLUMN_SPICYNESS + " INTEGER, " + COLUMN_PRICE
-			+ " INTEGER, " + COLUMN_MEALQUANTITY + " INTEGER, " + COLUMN_QUANTITYAVAILABLE 
-			+ " INTEGER, " + COLUMN_MEALRATING + " REAL, " + COLUMN_ISMEALINCART 
-			+ " INTEGER, " + COLUMN_MEALCOUNT + " INTEGER)";
+			+ " INTEGER, " + COLUMN_MEALQUANTITY + " INTEGER, " + COLUMN_AVAILABILITY
+			+ " INTEGER, " + COLUMN_MEALRATING + " REAL, " + COLUMN_MEALCOUNT + " INTEGER)";
 	
 	private static final String CREATE_TABLE_ADDRESS = "CREATE TABLE " + TABLE_ADDRESS
 			+ "(" + COLUMN_ADDRESSID + " INTEGER PRIMARY KEY, " + COLUMN_COUNTRY
@@ -80,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			+ " INTEGER, " + COLUMN_INITIALADDRESS + " TEXT, " + COLUMN_LANDMARK
 			+ " TEXT, " + COLUMN_COORDINATES + " TEXT, " + COLUMN_PRIORITY + " INTEGER)";
 	
-	private static final String CREATE_TABLE_CUSTOMER = "CREATE TABALE " + TABLE_CUSTOMER
+	private static final String CREATE_TABLE_CUSTOMER = "CREATE TABLE " + TABLE_CUSTOMER
 			+ "(" + COLUMN_CUSTOMERID + " INTEGER PRIMARY KEY, " + COLUMN_CUSTOMERNAME
 			+ " TEXT, " + COLUMN_PRIMARYNUMBER + " TEXT, " + COLUMN_SECONDARYNUMBER
 			+ " TEXT, " + COLUMN_PRIMARYEMAIL + " TEXT, " + COLUMN_SECONDARYEMAIL + ")";
