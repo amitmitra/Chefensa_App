@@ -20,20 +20,10 @@ public class CartMealListAdapter extends BaseAdapter {
 	List<Meal> cartList;
 	Context mContext;
 	
-	public CartMealListAdapter(Context mContext) {
+	public CartMealListAdapter(Context mContext,List<Meal> cartList) {
 		this.mContext = mContext;
-        cartList = new ArrayList<Meal>();
-        getMealsInCart();
+        this.cartList = cartList;
 	}
-    private void getMealsInCart(){
-        List<Meal> mealList = ChefensaDataSource.getInstance(mContext).getMeals();
-        for (int i = 0; i < mealList.size(); i++) {
-            Meal element = mealList.get(i);
-            if(element.getMealCount()>0){
-                cartList.add(element);
-            }
-        }
-    }
 
 	@Override
 	public int getCount() {

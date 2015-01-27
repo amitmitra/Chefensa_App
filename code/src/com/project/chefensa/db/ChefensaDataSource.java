@@ -8,6 +8,7 @@ import java.util.Map;
 import com.project.chefensa.model.Address;
 import com.project.chefensa.model.Customer;
 import com.project.chefensa.model.Meal;
+import com.project.chefensa.model.Order;
 import com.project.chefensa.util.ConstantUtil;
 
 import android.content.ContentValues;
@@ -50,9 +51,7 @@ public class ChefensaDataSource {
 			values.put(DatabaseHandler.COLUMN_CUSTOMERID, customer.getId());
 			values.put(DatabaseHandler.COLUMN_CUSTOMERNAME, customer.getCustomerName());
 			values.put(DatabaseHandler.COLUMN_PRIMARYNUMBER, customer.getPrimaryPhone());
-			values.put(DatabaseHandler.COLUMN_SECONDARYNUMBER, customer.getSecondaryPhone());
 			values.put(DatabaseHandler.COLUMN_PRIMARYEMAIL, customer.getPrimaryEmail());
-			values.put(DatabaseHandler.COLUMN_SECONDARYEMAIL, customer.getSecondaryEmail());
 			database.insert(DatabaseHandler.TABLE_CUSTOMER, null, values);
 			database.setTransactionSuccessful();
 		} finally{
@@ -71,9 +70,7 @@ public class ChefensaDataSource {
 			customer.setId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CUSTOMERID)));
 			customer.setCustomerName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CUSTOMERNAME)));
 			customer.setPrimaryPhone(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIMARYNUMBER)));
-			customer.setSecondaryPhone(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SECONDARYNUMBER)));
 			customer.setPrimaryEmail(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIMARYEMAIL)));
-			customer.setSecondaryEmail(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_SECONDARYEMAIL)));
 		}
         close();
 		return customer;
@@ -108,15 +105,7 @@ public class ChefensaDataSource {
 			do{
 				Address address = new Address();
 				address.setId(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_ADDRESSID)));
-				address.setCountry(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_COUNTRY)));
-				address.setState(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_STATE)));
-				address.setCity(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_CITY)));
-				address.setLocality(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_LOCALITY)));
-				address.setPin(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PIN)));
-				address.setInitialAddress(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_INITIALADDRESS)));
-				address.setLandmark(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_LANDMARK)));
-				address.setCoordinates(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_COORDINATES)));
-				address.setPriority(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_PRIORITY)));
+				address.setAddressText(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.COLUMN_ADDRESSTEXT)));
 				addresses.add(address);
 			} while(cursor.moveToNext());
 		}
@@ -130,13 +119,7 @@ public class ChefensaDataSource {
 		try {
 			ContentValues values = new ContentValues();
 			values.put(DatabaseHandler.COLUMN_ADDRESSID, address.getId());
-			values.put(DatabaseHandler.COLUMN_COUNTRY, address.getCountry());
-			values.put(DatabaseHandler.COLUMN_STATE, address.getState());
-			values.put(DatabaseHandler.COLUMN_CITY, address.getCity());
-			values.put(DatabaseHandler.COLUMN_LOCALITY, address.getLocality());
-			values.put(DatabaseHandler.COLUMN_PIN, address.getPin());
-			values.put(DatabaseHandler.COLUMN_INITIALADDRESS, address.getInitialAddress());
-			values.put(DatabaseHandler.COLUMN_LANDMARK, address.getLandmark());
+			values.put(DatabaseHandler.COLUMN_ADDRESSTEXT, address.getAddressText());
 			database.insertOrThrow(DatabaseHandler.TABLE_ADDRESS, null, values);
 			database.setTransactionSuccessful();
 		} finally {
@@ -390,5 +373,10 @@ public class ChefensaDataSource {
 		}
 		return result;
 	}
+
+    public int enterOrderDetails(Order order){
+        int result=0;
+        return result;
+    }
 
 }

@@ -136,7 +136,7 @@ public class MealListAdapter extends BaseAdapter {
 
                             if(ChefensaDataSource.getInstance(mContext).getAvailableCount(mealList.get(position).getMealId())>0) {
                                 ChefensaDataSource.getInstance(mContext).addToCart(mealList.get(position).getMealId(), 1);
-                                if(i!=0) {
+                                if(i>=0) {
                                     mealInCartView.setText("" + (i + 1));
                                 }
                             }

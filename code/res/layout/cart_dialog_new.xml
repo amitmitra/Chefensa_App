@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    >
+<LinearLayout
+    android:id="@+id/empty_cart_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp"
+    android:background="#FFFFFF"
+    android:visibility="gone">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="There is no item in your Cart\n Please select meals"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#FF0033"/>
+</LinearLayout>
+    <ScrollView
+        android:id="@+id/order_detail_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="50dp"
+          android:orientation="horizontal" >
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="fill_parent"
+              android:layout_weight="5"
+              android:gravity="center"
+              android:text="@string/name_string" />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="3"
+              android:gravity="center"
+              android:text="@string/quantity_string" />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:gravity="center"
+              android:text="@string/price_string" />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:gravity="center"
+              android:text="@string/remove_string" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/cart_meal_layout"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:background="@drawable/border_ui" />
+
+      <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal" >
+
+          <Button
+              android:id="@+id/place_order_button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="0dp"
+              android:text="@string/place_order_string"
+              android:textSize="20sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="20dp"
+              android:text="@string/total_string"
+              android:textSize="30sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="end"
+              android:layout_marginLeft="20dp"
+              android:paddingTop="10dp"
+              android:text="@string/rupee_string"
+              android:textSize="20sp"
+              android:textStyle="bold" />
+
+          <TextView
+              android:id="@+id/cart_total_price_view"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="right"
+              android:layout_marginLeft="10dp"
+              android:paddingTop="10dp"
+              android:text="200"
+              android:textSize="20sp"
+              android:textStyle="bold" />
+      </LinearLayout>
+<LinearLayout
+    android:id="@+id/customer_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
+    <LinearLayout
+        android:id="@+id/details_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+            <EditText
+                android:id="@+id/name_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:hint="Name"
+                android:textSize="20sp" />
+            <EditText
+                android:id="@+id/phone_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:hint="Phone Number"
+                android:textSize="20sp" />
+            <EditText
+                android:id="@+id/email_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:hint="Email (to send order bill)"
+                android:textSize="20sp" />
+        <LinearLayout
+            android:id="@+id/address_list_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/select_address_string"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/address_spinner"
+                style="@style/EllipticalEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_address_button"
+            style="@android:style/Widget.ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#FF0033"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFFFF"
+            android:text="@string/add_new_address_string" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/details_edit_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+            <!-- Flat No Layout -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address_string"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/flat_no_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/flat_no_string"
+                android:inputType="text" />
+
+            <!-- Building Name Layout -->
+
+            <EditText
+                android:id="@+id/building_name_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/building_name_string"
+                android:inputType="text" />
+
+            <!-- Street Layout -->
+
+            <EditText
+                android:id="@+id/street_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/street_name_string"
+                android:inputType="text" />
+
+            <!-- Locality Layout -->
+
+            <EditText
+                android:id="@+id/locality_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/locality_string"
+                android:inputType="text" />
+
+            <!-- Pin Code Layout -->
+
+            <EditText
+                android:id="@+id/pin_code_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/pin_string"
+                android:inputType="text" />
+
+            <!-- Landmark Layout -->
+
+            <EditText
+                android:id="@+id/landmark_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/landmark_string"
+                android:inputType="text" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Get your Meal"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    </LinearLayout>
+
+
+  </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/order_confirm_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+            <TextView
+                android:id="@+id/order_confirm_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                />
+            <TextView
+                android:id="@+id/order_confirm_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp" />
+            <TextView
+                android:id="@+id/order_confirm_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp" />
+            <TextView
+                android:id="@+id/order_confirm_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp" />
+            <TextView
+                android:id="@+id/order_confirm_totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/cod_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cod_string"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/pay_now_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pay_now_string"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        </LinearLayout>
+</RelativeLayout>

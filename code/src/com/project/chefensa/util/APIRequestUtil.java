@@ -1,16 +1,19 @@
-package com.project.chefensa.util;
+	package com.project.chefensa.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.apache.http.protocol.ResponseConnControl;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Application;
 import android.content.Context;
-import android.telephony.TelephonyManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,11 +35,14 @@ import com.project.chefensa.responsehandler.MealAvailabilityHandler;
 import com.project.chefensa.responsehandler.MealResponseHandler;
 
 public class APIRequestUtil extends Application {
+	
+	private static final Logger logger = Logger.getLogger(APIRequestUtil.class.getSimpleName());
+	
     private static RequestQueue mRequestQueue;
     private static APIRequestUtil mInstance;
     private static Context mCtx;
     private ImageLoader mImageLoader;
-    private static final String APIURL = "http://192.168.0.3:8080/Chefensa-WebService";
+    private static final String APIURL = "http://192.168.0.14:8080/Chefensa-WebService";
 
     ArrayList<Meal> mealArrayList = new ArrayList<Meal>();
 
@@ -80,28 +86,30 @@ public class APIRequestUtil extends Application {
         String url = APIURL;
         url = url + "/menu";
         url = url + "/menuList";
-        java.util.Date date= new java.util.Date();
-        String dateString = ""+date.getYear() + ":"+date.getMonth() + ":"+date.getDay();
+        Calendar calendar = Calendar.getInstance();
+        String dateString = calendar.get(Calendar.YEAR) + ":"+ (calendar.get(Calendar.MONTH)+1) + ":"+ calendar.get(Calendar.DATE);
         url = url + "?date="+ dateString;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray jsonArray) {
+            	logger.info("meal list response successfully received");
               if(jsonArray!=null){
                   Gson gson = new GsonBuilder().create();
                   try {
                       for (int i = 0; i < jsonArray.length(); i++) {
                           mealArrayList.add(gson.fromJson(jsonArray.get(i).toString(), Meal.class));
                       }
+                      logger.info("response successfully parsed");
                       mealHandler.mealResponseRecieved(mealArrayList);
                   }catch (JSONException e){
-
+                	  e.printStackTrace();
                   }
               }
             }
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                System.out.println(volleyError);
+                logger.info("not able to fetch meals for the day" + volleyError.getMessage());
             }
         });
         System.out.println(jsonArrayRequest);
@@ -128,9 +136,7 @@ public class APIRequestUtil extends Application {
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (error.networkResponse != null) {
-
-                }
+                logger.info("not able to fetch availability of meals " + error.getMessage());
             }
         });
         mRequestQueue.add(stringRequest);
@@ -142,7 +148,6 @@ public class APIRequestUtil extends Application {
         Chef chef = new Chef();
         String url = APIURL;
         url = url + "/chef/chefInfo";
-        java.util.Date date= new java.util.Date();
         url = url + "?id="+ chefId;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
@@ -163,7 +168,7 @@ public class APIRequestUtil extends Application {
 
     public int createOrder(final Order order){
         int response=0;
-        final Order order1= new Order(0,1,234,4,20,1);
+        //final Order order1= new Order(0,1,234,4,20,1);
 
         String url = APIURL;
         url = url + "/order/placeOrder" ;
@@ -190,7 +195,7 @@ public class APIRequestUtil extends Application {
             public byte[] getBody() {
                 String httpPostBody="";
                 Gson gson = new GsonBuilder().create();
-                String jsonString =gson.toJson(order1);
+                String jsonString =gson.toJson(order);
                 // usually you'd have a field with some values you'd want to escape, you need to do it yourself if overriding getBody. here's how you do it
                 httpPostBody=jsonString;
                 System.out.println(httpPostBody);
@@ -229,41 +234,59 @@ public class APIRequestUtil extends Application {
         cust=null;
         return cust;
     }
-    public void sendCustomerDeviceId(Context c, final CustomerHandler handler){
-    	TelephonyManager tm = (TelephonyManager)c.getSystemService(Context.TELEPHONY_SERVICE);
-		final Customer cust = new Customer(tm.getDeviceId());
+    
+	public void createCustomerUsingDeviceIdAndGCMId(Context c,
+			final Customer cust, final CustomerHandler handler) {
+		String url = APIURL;
+		url = url + "/customer/create";
+		
+		JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
 
-        String url = APIURL;
-        url = url + "/customer/create" ;
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                    	Gson gson = new GsonBuilder().create();
-                    	handler.getCustomerResponse(gson.fromJson(response.toString(), Customer.class));
-                    }
-                }, new Response.ErrorListener() {
+			@Override
+			public void onResponse(JSONObject arg0) {
+				logger.log(Level.INFO, "customer successfully");
+				handler.getCustomerResponse();
+			}
+		}, new Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }) {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				logger.log(Level.INFO, "Not able create customer data: " + error.getMessage());
+			}
+		}){
+			@Override
+			public String getBodyContentType() {
+				return "application/json; charset=utf-8";
+			}
 
-            @Override
-            public String getBodyContentType() {
-                return "application/json; charset=utf-8";
-            }
+			@Override
+			public byte[] getBody() {
+				String httpPostBody = "";
+				Gson gson = new GsonBuilder().create();
+				String jsonString = gson.toJson(cust);
+				httpPostBody = jsonString;
+				return httpPostBody.getBytes();
+			}
+		};
+		
+		mRequestQueue.add(request);
+	}
+	
+	public void increaseHit(String deviceId){
+		String url = APIURL;
+        url = url + "/customer/hit?deviceId=" + deviceId;
+        StringRequest request = new StringRequest(Request.Method.PUT, url, new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				logger.info("Successful transaction");
+			}
+		}, new Response.ErrorListener() {
 
-            @Override
-            public byte[] getBody() {
-                String httpPostBody="";
-                Gson gson = new GsonBuilder().create();
-                String jsonString =gson.toJson(cust);
-                // usually you'd have a field with some values you'd want to escape, you need to do it yourself if overriding getBody. here's how you do it
-                httpPostBody=jsonString;
-                return httpPostBody.getBytes();
-            }
-        };
-        mRequestQueue.add(jsonObjReq);
-    }
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				logger.info("transaction unsuccessful : " + error.toString());
+			}
+		});
+        mRequestQueue.add(request);
+	}
 }

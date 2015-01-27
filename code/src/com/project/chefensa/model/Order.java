@@ -3,22 +3,82 @@ package com.project.chefensa.model;
 public class Order {
 
 	private long id;
-	private long mealId;
+    private String deviceId;
+	private String mealId;
 	private long dateTime;
-	private int mealCount;
+	private String mealCount;
 	private int totalPrice;
 	private int status;
-	
-	public Order(long id, long mealId, long dateTime,
-			int mealCount, int totalPrice, int status) {
-		super();
-		this.id = id;
-		this.mealId = mealId;
-		this.dateTime = dateTime;
-		this.mealCount = mealCount;
-		this.totalPrice = totalPrice;
-		this.status = status;
-	}
+    private String address;
+    private String customerName;
+    private String phoneNumber;
+    private String customerEmail;
+    private int orderPaymentType; //0 for PayNow, 1 for COD
+
+
+    public Order(){
+
+    }
+
+    public Order(long id, String mealId, long dateTime,
+                 String mealCount, int totalPrice, int status,String address) {
+        super();
+        this.id = id;
+        this.mealId = mealId;
+        this.dateTime = dateTime;
+        this.mealCount = mealCount;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.address=address;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public int getOrderType() {
+        return orderPaymentType;
+    }
+
+    public void setOrderType(int orderType) {
+        this.orderPaymentType = orderType;
+    }
 
 	public long getId() {
 		return id;
@@ -28,11 +88,11 @@ public class Order {
 		this.id = id;
 	}
 
-	public long getMealId() {
+	public String getMealId() {
 		return mealId;
 	}
 
-	public void setMealId(long mealId) {
+	public void setMealId(String mealId) {
 		this.mealId = mealId;
 	}
 
@@ -44,11 +104,11 @@ public class Order {
 		this.dateTime = dateTime;
 	}
 
-	public int getMealCount() {
+	public String getMealCount() {
 		return mealCount;
 	}
 
-	public void setMealCount(int mealCount) {
+	public void setMealCount(String mealCount) {
 		this.mealCount = mealCount;
 	}
 

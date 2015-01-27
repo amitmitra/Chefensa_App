@@ -16,10 +16,10 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
-        <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
-        <item>@drawable/ic_pages</item>
-        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/my_orders</item>
+        <item>@drawable/my_profile</item>
+        <item>@drawable/how_it_works</item>
+        <item>@drawable/contact_us</item>
     </array>
 
     <!-- Content Description -->
